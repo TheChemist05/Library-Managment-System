@@ -1,0 +1,53 @@
+/* This is a list of all titles available in the library. One book title can have zero or more copied available  */
+CREATE TABLE IF NOT EXISTS books_catalog (
+	book_id INTEGER PRIMARY KEY,
+   	book_name TEXT NOT NULL UNIQUE,
+	book_auth TEXT NOT NULL,
+	book_desc TEXT
+);
+
+/* This table has a list of all the members */
+CREATE TABLE IF NOT EXISTS members (
+	member_id INTEGER PRIMARY KEY,
+	first_name TEXT NOT NULL,
+	last_name TEXT NOT NULL,
+	email TEXT ,
+	phone TEXT NOT NULL UNIQUE,
+	status INTEGER DEFAULT 1  /* 0 = Inactive, 1 = Active */
+);
+
+/* This tale has one record for each copy of the books in the library */
+CREATE TABLE IF NOT EXISTS books_inventory (
+	book_item_id 	INTEGER PRIMARY KEY,
+	book_id INTEGER,
+	status INTEGER DEFAULT 0, /* 0 = available, 1 = checkout, 2 = missing */
+	FOREIGN KEY (book_id)
+	  REFERENCES books_catalog (book_id) 
+            ON DELETE CASCADE 
+            ON UPDATE NO ACTION
+);
+
+/* This table has one record for each book copy that is borrowed from library */
+CREATE TABLE IF NOT EXISTS book_checkout (
+	book_checkout_id  INTEGER PRIMARY KEY,
+	book_item_id 	INTEGER,
+	member_id INTEGER,
+	due_date INTEGER date1,
+        
+	FOREIGN KEY (book_item_id ) 
+           REFERENCES books_inventory (book_item_id) 
+               ON DELETE CASCADE 
+               ON UPDATE NO ACTION,
+        FOREIGN KEY (member_id) 
+           REFERENCES members (member_id) 
+               ON DELETE CASCADE 
+               ON UPDATE NO ACTION
+);
+
+/* 
+DROP TABLE books_catalog;
+DROP TABLE books_inventory;
+DROP TABLE members;
+DROP TABLE book_checkout;
+
+*/

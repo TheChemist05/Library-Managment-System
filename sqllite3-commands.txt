@@ -1,0 +1,41 @@
+D:\_Workspace\ASK-project>..\sqlite\sqlite3.exe libraryapp.db
+SQLite version 3.39.3 2022-09-05 11:02:23
+Enter ".help" for usage hints.
+sqlite>
+sqlite> .tables
+book_checkout    books_catalog    books_inventory  members
+sqlite> select * from books_catalog;
+
+================================================
+D:\_Workspace\ASK-project>python db-connection-util.py
+================================================
+
+
+sqlite>
+	.help
+	.help parameter
+	.headers on
+	.mode table
+	.show
+	.stats
+	.width
+	.echo on|off
+
+sqlite> .show
+.show
+        echo: on
+.m
+         eqp: off
+     explain: auto
+     headers: on
+        mode: table --wrap 60 --wordwrap off --noquote
+   nullvalue: ""
+      output: stdout
+colseparator: "|"
+rowseparator: "\n"
+       stats: off
+       width: 0 0 0 0
+    filename: libraryapp.db
+===============================
+
+sqlite> .read libraryapp-db-commands.txt;
